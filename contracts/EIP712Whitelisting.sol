@@ -2,8 +2,9 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract EIP712Whitelisting {
+contract EIP712Whitelisting is Ownable {
     using ECDSA for bytes32;
 
     // The key used to sign whitelist signatures.
@@ -27,10 +28,6 @@ contract EIP712Whitelisting {
         keccak256("Minter(address wallet)");
 
     constructor() {
-        uint256 chainId;
-        assembly {
-            chainId := chainid()
-        }
         // This should match whats in the client side whitelist signing code
         // https://github.com/msfeldstein/EIP712-whitelisting/blob/main/test/signWhitelist.ts#L12
         DOMAIN_SEPARATOR = keccak256(
@@ -41,13 +38,13 @@ contract EIP712Whitelisting {
                 // This should match the domain you set in your client side signing.
                 keccak256(bytes("WhitelistToken")),
                 keccak256(bytes("1")),
-                chainId,
+                block.chainid,
                 address(this)
             )
         );
     }
 
-    function setWhitelistSigningAddress(address newSigningKey) public {
+    function setWhitelistSigningAddress(address newSigningKey) public onlyOwner {
         whitelistSigningKey = newSigningKey;
     }
 

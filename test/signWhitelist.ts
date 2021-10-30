@@ -7,7 +7,7 @@ export default async function signWhitelist(
   mintingAddress: string
 ) {
   // Domain data should match whats specified in the DOMAIN_SEPARATOR constructed in the contract
-  // https://github.com/msfeldstein/EIP712-whitelisting/blob/main/contracts/EIP712Whitelisting.sol#L37-L47
+  // https://github.com/msfeldstein/EIP712-whitelisting/blob/main/contracts/EIP712Whitelisting.sol#L33-L43
   const domain = {
     name: "WhitelistToken",
     version: "1",
@@ -16,7 +16,7 @@ export default async function signWhitelist(
   };
 
   // The types should match the TYPEHASH specified in the contract
-  // https://github.com/msfeldstein/EIP712-whitelisting/blob/main/contracts/EIP712Whitelisting.sol#L25-L26
+  // https://github.com/msfeldstein/EIP712-whitelisting/blob/main/contracts/EIP712Whitelisting.sol#L27-L28
   const types = {
     Minter: [{ name: "wallet", type: "address" }],
   };
