@@ -14,11 +14,11 @@ In order to prove that someone has been approved by the project we can have a wh
 
 ## Examples
 
-### Signature Generation
+### [Signature Generation](https://github.com/msfeldstein/EIP712-whitelisting/blob/main/test/signWhitelist.ts)
 
 To generate the signature needed to mint, we can look at example code in [signWhitelist.ts](https://github.com/msfeldstein/EIP712-whitelisting/blob/main/test/signWhitelist.ts).  We can see that we create whats called a [domain separator](https://github.com/msfeldstein/EIP712-whitelisting/blob/main/test/signWhitelist.ts#L12-L17) which is used to make sure one contracts signature can't be replayed into another contract, or from testnet to mainnet.  We also create the [typehash](https://github.com/msfeldstein/EIP712-whitelisting/blob/main/test/signWhitelist.ts#L21-L23) we use to describe how the data is structured.  All this data needs to exactly match what we use in the solidity contract.  We then use ethers' [signTypedData](https://github.com/msfeldstein/EIP712-whitelisting/blob/main/test/signWhitelist.ts#L25-L27) function to sign the structured data and return the signature.
 
-### Signature Verification
+### [Signature Verification](https://github.com/msfeldstein/EIP712-whitelisting/blob/main/contracts/EIP712Whitelisting.sol)
 
 I've created an [EIP712Whitelisting contract](https://github.com/msfeldstein/EIP712-whitelisting/blob/main/contracts/EIP712Whitelisting.sol) that you can inherit to get the [requiresWhitelist modifier](https://github.com/msfeldstein/EIP712-whitelisting/blob/main/contracts/EIP712Whitelisting.sol#L55) that you can use to protect public calls with a whitelisting requirement.  To enforce this we need to [recreate the exact digest that we expected to be signed](https://github.com/msfeldstein/EIP712-whitelisting/blob/main/contracts/EIP712Whitelisting.sol#L59-L65) (essentially the domain separator described above and the address of the minting account), and then we can take the digest and the signature and use `ecrecover` to see what account created the signature, and make sure its the one we expect.
 
