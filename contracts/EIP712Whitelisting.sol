@@ -30,6 +30,7 @@ contract EIP712Whitelisting {
         assembly {
             chainId := chainid()
         }
+        // This should match whats in the client side whitelist signing code
         DOMAIN_SEPARATOR = keccak256(
             abi.encode(
                 keccak256(
