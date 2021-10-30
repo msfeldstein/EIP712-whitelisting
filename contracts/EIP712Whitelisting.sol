@@ -1,7 +1,6 @@
 //SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
 
 contract EIP712Whitelisting {
@@ -51,6 +50,7 @@ contract EIP712Whitelisting {
     function setWhitelistSigningAddress(address newSigningKey) public {
         whitelistSigningKey = newSigningKey;
     }
+
     modifier requiresWhitelist(bytes calldata signature) {
         require(whitelistSigningKey != address(0), "whitelist not enabled");
         // Verify EIP-712 signature by recreating the data structure
