@@ -76,7 +76,7 @@ contract NFT is ERC721 {
         _safeMint(msg.sender, _tokenIdCounter.current());
     }
 
-    function _baseURI() internal pure override returns (string memory) {
-        return "ipfs://whatever/";
+    function tokenURI() public pure returns (string memory) {
+        return "ipfs://bafybeiaqofrinid75krvga6c2alksixzmhuddx3zxgwvmyhh7vsyjbv6tm";
     }
 }
