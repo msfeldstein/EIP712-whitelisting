@@ -22,6 +22,8 @@ contract EIP712Whitelisting {
 
     // The typehash for the data type specified in the structured data
     // https://github.com/ethereum/EIPs/blob/master/EIPS/eip-712.md#rationale-for-typehash
+    // This should match whats in the client side whitelist signing code
+    // https://github.com/msfeldstein/EIP712-whitelisting/blob/main/test/signWhitelist.ts#L22
     bytes32 public constant MINTER_TYPEHASH =
         keccak256("Minter(address wallet)");
 
@@ -31,6 +33,7 @@ contract EIP712Whitelisting {
             chainId := chainid()
         }
         // This should match whats in the client side whitelist signing code
+        // https://github.com/msfeldstein/EIP712-whitelisting/blob/main/test/signWhitelist.ts#L12
         DOMAIN_SEPARATOR = keccak256(
             abi.encode(
                 keccak256(
