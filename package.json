@@ -4,6 +4,9 @@
   "main": "index.js",
   "author": "Michael Feldstein",
   "license": "MIT",
+  "scripts": {
+    "test": "hardhat test"
+  },
   "dependencies": {
     "@openzeppelin/contracts": "^4.3.2",
     "hardhat": "^2.6.7"
@@ -18,6 +21,8 @@
     "@types/node": "^16.11.6",
     "chai": "^4.3.4",
     "ethereum-waffle": "^3.0.0",
-    "ethers": "^5.0.0"
+    "ethers": "^5.0.0",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.4"
   }
 }
